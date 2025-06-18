@@ -31,7 +31,7 @@ app.get('/products', async (req, res) => {
 }) 
 
 app.get('/products/create', (req,res) => {
-    res.render('./products/create.ejs', { categories })
+    res.render('./products/create.ejss', { categories })
 })
 
 app.post('/products/', async (req, res) => {
