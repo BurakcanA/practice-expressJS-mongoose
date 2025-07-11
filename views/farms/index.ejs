@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>All Farms</title>
   </head>
   <body>
-    <h1>All products</h1>
+    <h1>All Farms</h1>
     <ul>
-      <% for(let p of products) {%>
-      <a href="/products/<%= p.id %>"><li><%= p.name %></li></a>
+      <% for(let f of farms) {%>
+      <a href="/farms/<%= f.id %>"><li><%= f.name %></li></a>
       <% } %>
     </ul>
-    <a href="/products/create">New Product</a>
+    <a href="/farms/create">New Farm</a>
   </body>
 </html>

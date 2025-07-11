@@ -3,6 +3,7 @@ const app = express()
 const path = require('path')
 const mongoose = require('mongoose')
 const Product = require('./models/product')
+const Farm = require('./models/farm')
 var methodOverride = require('method-override')
 
 app.set('views', path.join(__dirname,'views'))
@@ -25,6 +26,43 @@ app.listen('3000',() => {
     console.log('App is listening from port 3000')
 })
 
+//Farm Routes
+
+app.get('/farms/create', (req,res) => {
+    res.render('./farms/create.ejs')
+})
+
+app.get('/farms', async (req,res) => {
+    const farms = await Farm.find({})
+    res.render('./farms/index.ejs', { farms })
+})
+
+app.post('/farms', async (req,res) => {
+    const newFarm = new Farm(req.body)
+    await newFarm.save()
+    res.redirect(`farms/${newFarm._id}`)
+})
+
+app.get('/farms/:id', async (req, res) => {
+    const {id} = req.params
+    const farm = await Farm.findById(id)
+    res.render('./farms/show.ejs' , { farm })
+})
+
+app.get('/farms/:id/edit', async (req, res) => {
+    const { id } = req.params
+    const farm = await Farm.findById(id)
+    res.render('./farms/edit.ejs', { farm })
+
+})
+
+app.get('/farms/:id/delete', async (req, res) => {
+    const { id } = req.params
+    await Farm.findByIdAndDelete(id).then((data) => {console.log(data)})
+    res.redirect('/farms')
+})
+
+// Product Routes
 app.get('/products', async (req, res) => {
     const products = await Product.find({})
     res.render('./products/index.ejs', { products })
